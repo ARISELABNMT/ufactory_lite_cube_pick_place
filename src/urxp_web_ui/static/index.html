@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>URXP Control</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>URXP Pick &amp; Place</h1>
+    <div class="header-right">
+      <div id="clock" class="muted"></div>
+      <button id="btn-fullscreen" class="btn btn-toggle" title="Toggle fullscreen">⛶ Fullscreen</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="col-left">
+      <section class="panel camera">
+        <div class="panel-head">
+          <h2>Camera</h2>
+          <div class="btn-group camera-toggle">
+            <button id="btn-view-debug" class="btn btn-toggle active">Detection view</button>
+            <button id="btn-view-raw" class="btn btn-toggle">Raw view</button>
+          </div>
+        </div>
+        <div class="camera-frame">
+          <img id="camera-img" alt="camera stream" src="/stream/debug">
+        </div>
+      </section>
+    </div>
+
+    <div class="col-right">
+      <section class="panel launches">
+        <h2>Processes</h2>
+        <div class="launch-row">
+          <div class="launch-info">
+            <span class="dot" id="dot-robot"></span>
+            <div>
+              <div class="launch-name">Robot + MoveIt</div>
+              <div class="launch-sub muted">urxp_robot.launch.py</div>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button id="btn-robot-start" class="btn btn-start">Start</button>
+            <button id="btn-robot-stop" class="btn btn-stop">Stop</button>
+          </div>
+        </div>
+        <div class="launch-row">
+          <div class="launch-info">
+            <span class="dot" id="dot-pipeline"></span>
+            <div>
+              <div class="launch-name">Camera + Detector + Server</div>
+              <div class="launch-sub muted">urxp_pick_place.launch.py</div>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button id="btn-pipeline-start" class="btn btn-start">Start</button>
+            <button id="btn-pipeline-stop" class="btn btn-stop">Stop</button>
+          </div>
+        </div>
+
+        <div class="execute-row">
+          <button id="btn-execute" class="btn btn-execute" disabled>Execute Pick &amp; Place</button>
+          <span id="busy-indicator" class="muted"></span>
+        </div>
+      </section>
+
+      <section class="panel status">
+        <h2>Status</h2>
+        <pre id="status-text">(waiting for status…)</pre>
+        <div class="status-grid">
+          <div>
+            <div class="label muted">Color</div>
+            <div class="value-row">
+              <span id="color-swatch" class="swatch"></span>
+              <span id="color-text">unknown</span>
+            </div>
+          </div>
+          <div>
+            <div class="label muted">Position</div>
+            <div id="pose-text">—</div>
+          </div>
+          <div>
+            <div class="label muted">Last result</div>
+            <div id="result-text">—</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel positions">
+        <h2>Place positions (by color)</h2>
+        <table id="pos-table">
+          <thead>
+            <tr><th></th><th>X (m)</th><th>Y (m)</th><th>Z (m)</th></tr>
+          </thead>
+          <tbody>
+            <tr data-color="red">
+              <td><span class="swatch swatch-red"></span>Red</td>
+              <td><input type="number" step="0.01" class="pos-x"></td>
+              <td><input type="number" step="0.01" class="pos-y"></td>
+              <td><input type="number" step="0.01" class="pos-z"></td>
+            </tr>
+            <tr data-color="green">
+              <td><span class="swatch swatch-green"></span>Green</td>
+              <td><input type="number" step="0.01" class="pos-x"></td>
+              <td><input type="number" step="0.01" class="pos-y"></td>
+              <td><input type="number" step="0.01" class="pos-z"></td>
+            </tr>
+            <tr data-color="blue">
+              <td><span class="swatch swatch-blue"></span>Blue</td>
+              <td><input type="number" step="0.01" class="pos-x"></td>
+              <td><input type="number" step="0.01" class="pos-y"></td>
+              <td><input type="number" step="0.01" class="pos-z"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="btn-group">
+          <button id="btn-save-positions" class="btn btn-start">Save</button>
+          <button id="btn-reload-positions" class="btn btn-toggle">Reload</button>
+          <span id="positions-msg" class="muted"></span>
+        </div>
+      </section>
+
+      <section class="panel note">
+        <ul>
+          <li>RViz isn't embedded (no VNC stack installed) — opens as its own desktop window from "Start Robot".</li>
+          <li>Stop kills the whole launch tree, from this page or a terminal — not a hardware e-stop.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

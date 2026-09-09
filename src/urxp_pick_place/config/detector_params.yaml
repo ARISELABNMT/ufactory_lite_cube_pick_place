@@ -1,0 +1,39 @@
+cube_detector:
+  ros__parameters:
+    cube_color: 'multi'    # 'multi' detects red/green/blue; or 'white'/'black'/'yellow' for a single color
+    # min_area was tuned against a live capture where the actual cube — small,
+    # and often seen at an oblique angle showing 2-3 faces — only fills
+    # ~100-1300px depending on which/how many faces are visible. 500 silently
+    # rejected the red/green side-face contours every time (only ~100-200px),
+    # which read as "wrong/missing color" even though the HSV ranges below
+    # were already correctly separating cube from background (measured false-
+    # positive rate near zero at these S/V floors — do not lower them further,
+    # that lets the wood table's own saturated grain/glare through instead).
+    min_area: 80
+    max_area: 50000
+    robot_base_frame: 'link_base'
+    camera_frame: 'camera_color_optical_frame'
+    fallback_depth_m: 0.40
+    # Reject irregular/jagged blobs (fixes a real false-positive seen on this
+    # bench: a paper stack + cable on the desk edge was scoring as "blue").
+    # 0.75 (not 0.85) because the cube's own oblique side faces measured
+    # 0.79-0.84 solidity — 0.85 was rejecting the real cube too.
+    min_solidity: 0.75
+    # Smaller kernel than the old default (5): a 5x5 open/close erased the
+    # small oblique red/green side-face contours (~100-200px) down to nothing
+    # before they ever reached min_area. At 3x3 they survive, AND the three
+    # face-color masks merge into one clean silhouette of the whole cube
+    # instead of one isolated face — a tighter, more complete edge box.
+    morph_kernel_size: 3
+    # Workspace ROI (fractions of image width/height) — excludes the right
+    # edge of the desk where cables/papers sit outside the pick area. Widen
+    # roi_x_max back toward 1.0 if you need to detect closer to that edge.
+    roi_x_min: 0.0
+    roi_x_max: 0.85
+    roi_y_min: 0.0
+    roi_y_max: 1.0
+
+pose_filter:
+  ros__parameters:
+    window_size: 10
+    std_threshold: 0.01

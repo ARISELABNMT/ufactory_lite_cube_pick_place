@@ -1,0 +1,52 @@
+urxp_pick_place_server:
+  ros__parameters:
+    # Robot joint names
+    joint_names:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+      - joint5
+      - joint6
+
+    # Observe joint configuration (radians) — camera-facing pose used before/after each task
+    observe_joints: [0.0, -0.5, 1.2, 0.0, 1.5, 0.0]
+
+    # Planning group and frames
+    planning_group: lite6
+    base_frame: link_base
+    eef_link: link_eef
+
+    # Motion heights relative to target Z (meters)
+    pre_grasp_height: 0.15       # approach height above the target before descent
+    grasp_height_offset: 0.062   # EEF height above cube surface at pick (suction cup length)
+    place_height_offset: 0.068   # EEF height above surface at release
+
+    # Cartesian path parameters
+    cartesian_step_m: 0.010
+    cartesian_jump_threshold: 0.0
+
+    # Motion velocity scaling
+    approach_velocity: 0.2
+    descent_velocity: 0.1
+    lift_velocity: 0.1
+
+    # Timing
+    gripper_wait_sec: 2.0
+    plan_timeout_sec: 10.0
+    preview_wait_sec: 2.5
+
+    # Target object
+    cube_size_m: 0.05
+
+    # How often the detected cube updates the MoveIt planning-scene collision
+    # object (the box you see following the cube in RViz). Lower = more
+    # responsive to hand movement, higher = safer against service-queue
+    # backups (ApplyPlanningScene) during a pick sequence.
+    scene_update_interval_sec: 0.3
+
+    # Predefined place positions [x, y, z] in base_frame — selected automatically
+    # by the cube's detected color at execute time (no place_pose topic needed).
+    place_position_red:   [0.30, 0.25, 0.02]
+    place_position_green: [0.30, 0.0, 0.02]
+    place_position_blue:  [0.30, -0.25, 0.02]

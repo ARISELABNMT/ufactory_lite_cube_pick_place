@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<sdf version="1.9">
+  <model name="target_cube">
+    <!-- 5cm cube, ~50g. Face-color mapping (opposite pairs share a color):
+           +Z/-Z (top/bottom) = red
+           +X/-X (front/back) = green
+           +Y/-Y (left/right) = blue
+         cube_detector identifies whichever face is visible to the camera. -->
+    <link name="link">
+      <inertial>
+        <mass>0.05</mass>
+        <inertia>
+          <ixx>0.0000208</ixx>
+          <iyy>0.0000208</iyy>
+          <izz>0.0000208</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+
+      <collision name="collision">
+        <geometry>
+          <box><size>0.05 0.05 0.05</size></box>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+
+      <!-- +Z top: red -->
+      <visual name="face_top">
+        <pose>0 0 0.026 0 0 0</pose>
+        <geometry><box><size>0.05 0.05 0.002</size></box></geometry>
+        <material>
+          <ambient>0.8 0.05 0.05 1</ambient>
+          <diffuse>0.8 0.05 0.05 1</diffuse>
+        </material>
+      </visual>
+      <!-- -Z bottom: red -->
+      <visual name="face_bottom">
+        <pose>0 0 -0.026 0 0 0</pose>
+        <geometry><box><size>0.05 0.05 0.002</size></box></geometry>
+        <material>
+          <ambient>0.8 0.05 0.05 1</ambient>
+          <diffuse>0.8 0.05 0.05 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- +X front: green -->
+      <visual name="face_front">
+        <pose>0.026 0 0 0 0 0</pose>
+        <geometry><box><size>0.002 0.05 0.05</size></box></geometry>
+        <material>
+          <ambient>0.05 0.7 0.1 1</ambient>
+          <diffuse>0.05 0.7 0.1 1</diffuse>
+        </material>
+      </visual>
+      <!-- -X back: green -->
+      <visual name="face_back">
+        <pose>-0.026 0 0 0 0 0</pose>
+        <geometry><box><size>0.002 0.05 0.05</size></box></geometry>
+        <material>
+          <ambient>0.05 0.7 0.1 1</ambient>
+          <diffuse>0.05 0.7 0.1 1</diffuse>
+        </material>
+      </visual>
+
+      <!-- +Y left: blue -->
+      <visual name="face_left">
+        <pose>0 0.026 0 0 0 0</pose>
+        <geometry><box><size>0.05 0.002 0.05</size></box></geometry>
+        <material>
+          <ambient>0.05 0.15 0.8 1</ambient>
+          <diffuse>0.05 0.15 0.8 1</diffuse>
+        </material>
+      </visual>
+      <!-- -Y right: blue -->
+      <visual name="face_right">
+        <pose>0 -0.026 0 0 0 0</pose>
+        <geometry><box><size>0.05 0.002 0.05</size></box></geometry>
+        <material>
+          <ambient>0.05 0.15 0.8 1</ambient>
+          <diffuse>0.05 0.15 0.8 1</diffuse>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
