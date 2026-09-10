@@ -5,8 +5,6 @@ RealSense camera and a UFACTORY xArm Lite6 with a vacuum gripper, and sorts
 it into one of three positions by color. Runs on real hardware or in Gazebo
 simulation, with an optional local web dashboard as a third way to run it.
 
-![Cube detection example](docs/images/cube_detection_example.png)
-*`cube_detector` locking onto the cube — real capture, not a mockup.*
 
 | Web UI (`urxp_web_ui`) | RViz (real-hardware run) |
 |---|---|
