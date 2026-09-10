@@ -8,8 +8,11 @@ simulation, with an optional local web dashboard as a third way to run it.
 ![Cube detection example](docs/images/cube_detection_example.png)
 *`cube_detector` locking onto the cube — real capture, not a mockup.*
 
+| Web UI (`urxp_web_ui`) | RViz (real-hardware run) |
+|---|---|
+| ![Web UI dashboard](docs/images/web_ui_dashboard.png) | ![RViz during a real-hardware run](docs/images/rviz_realmove.png) |
+
 <!-- TODO: image — robot_setup.jpg: wide shot of the physical cell -->
-<!-- TODO: image — web_ui_dashboard.png: the web UI mid-task -->
 
 ---
 
@@ -40,7 +43,7 @@ pip install --user xarm-python-sdk
 ### Install & Build
 
 ```bash
-git clone https://github.com/<your-org>/ufactory_lite_cube_pick_place.git
+git clone https://github.com/ARISELABNMT/ufactory_lite_cube_pick_place.git
 cd ufactory_lite_cube_pick_place
 source /opt/ros/jazzy/setup.bash
 colcon build --symlink-install
